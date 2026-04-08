@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Idempotency.Net/Idempotency.Net.csproj" />
+    <Project Path="src/Idempotency.Net.AspNetCore/Idempotency.Net.AspNetCore.csproj" />
+    <Project Path="src/Idempotency.Net.Redis/Idempotency.Net.Redis.csproj" />
+    <Project Path="src/Idempotency.Net.PostgreSql/Idempotency.Net.PostgreSql.csproj" />
+  </Folder>
+  <Folder Name="/examples/">
+    <Project Path="examples/DemoMinimalApi/DemoMinimalApi.csproj" />
+    <Project Path="examples/DemoControllerApi/DemoControllerApi.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Idempotency.Net.Redis.IntegrationTests/Idempotency.Net.Redis.IntegrationTests.csproj" />
+    <Project Path="tests/Idempotency.Net.PostgreSql.IntegrationTests/Idempotency.Net.PostgreSql.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
