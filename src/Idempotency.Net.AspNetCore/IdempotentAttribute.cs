@@ -125,21 +125,21 @@ public sealed class IdempotentAttribute : Attribute, IAsyncActionFilter
                 CreatedAt = createdAt,
                 ExpiresAt = expiresAt,
             },
-            JsonResult jsonResult => new IdempotencyRecord
-            {
-                Key = key,
-                StatusCode = jsonResult.StatusCode ?? StatusCodes.Status200OK,
-                ResponseBody = JsonSerializer.Serialize(jsonResult.Value, SerializerOptions),
-                ContentType = "application/json; charset=utf-8",
-                CreatedAt = createdAt,
-                ExpiresAt = expiresAt,
-            },
             ObjectResult objectResult => new IdempotencyRecord
             {
                 Key = key,
                 StatusCode = objectResult.StatusCode ?? StatusCodes.Status200OK,
-                ResponseBody = JsonSerializer.Serialize(objectResult.Value, SerializerOptions),
+                ResponseBody = objectResult.Value is string s ? s : JsonSerializer.Serialize(objectResult.Value, SerializerOptions),
                 ContentType = objectResult.ContentTypes.Count > 0 ? objectResult.ContentTypes[0] : "application/json; charset=utf-8",
+                CreatedAt = createdAt,
+                ExpiresAt = expiresAt,
+            },
+            JsonResult jsonResult => new IdempotencyRecord
+            {
+                Key = key,
+                StatusCode = jsonResult.StatusCode ?? StatusCodes.Status200OK,
+                ResponseBody = jsonResult.Value is string s ? s : JsonSerializer.Serialize(jsonResult.Value, SerializerOptions),
+                ContentType = "application/json; charset=utf-8",
                 CreatedAt = createdAt,
                 ExpiresAt = expiresAt,
             },
