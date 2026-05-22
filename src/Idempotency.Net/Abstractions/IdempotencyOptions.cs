@@ -16,11 +16,6 @@ public sealed class IdempotencyOptions
     public TimeSpan Expiration { get; set; } = TimeSpan.FromHours(24);
 
     /// <summary>
-    /// Gets or sets the maximum time to wait for a distributed lock. Default is 5 seconds.
-    /// </summary>
-    public TimeSpan LockTimeout { get; set; } = TimeSpan.FromSeconds(5);
-
-    /// <summary>
     /// Gets or sets the lifetime of a distributed lock. Default is 10 seconds.
     /// </summary>
     public TimeSpan LockExpiry { get; set; } = TimeSpan.FromSeconds(10);
