@@ -3,7 +3,7 @@
 **A lightweight, production‑ready idempotency library for ASP.NET Core with built‑in distributed locking and pluggable storage (Redis, PostgreSQL, In‑Memory).**
 
 [![NuGet](https://img.shields.io/nuget/v/IdempotencyToolkit.svg)](https://www.nuget.org/packages/IdempotencyToolkit)
-[![Build](https://github.com/NickDev1781/IdempotencyToolKit/actions/workflows/build.yml/badge.svg)](https://github.com/NickDev1781/Idempotency.Net/actions)
+[![Build](https://github.com/NickDev1781/IdempotencyToolKit/actions/workflows/build.yml/badge.svg)](https://github.com/NickDev1781/IdempotencyToolkit/actions)
 [![Tests](https://img.shields.io/badge/tests-integration%20%E2%9C%93-green)](tests)
 
 ## Why IdempotencyToolkit?
@@ -17,6 +17,7 @@ Existing solutions like [IdempotentAPI](https://github.com/ikyriak/IdempotentAPI
 ## Features
 
 - 🛡️ **Guaranteed exactly‑once execution** – distributed locking prevents race conditions even under concurrent requests.
+- 🧹 **Background cleanup** – expired records in PostgreSQL are automatically removed by a built‑in hosted service (configurable interval).
 - 🔌 **Pluggable storage** – Redis, PostgreSQL, or In‑Memory (for development/testing).
 - 🧘 **Minimal setup** – nstall a storage provider + ASP.NET Core package, add one line to `Program.cs`, apply an attribute.
 - ⚙️ **Flexible configuration** – customizable key header, TTL, lock timeouts.
@@ -137,12 +138,15 @@ If you value simplicity, built‑in safety, and native PostgreSQL support, **Ide
 
 ### PostgreSQL Options
 
-| Property               | Default                | Description                                    |
-|------------------------|------------------------|------------------------------------------------|
-| ConnectionString       | —                      | PostgreSQL connection string.                  |
-| Schema                 | `public`               | Database schema.                               |
-| TableName              | `idempotency_records`  | Name of the idempotency table.                 |
-| EnableAutoCreateTable  | `true`                 | Automatically create the table if not exists.  |
+| Property                 | Default                | Description                                                |
+|--------------------------|------------------------|------------------------------------------------------------|
+| ConnectionString         | —                      | PostgreSQL connection string.                              |
+| Schema                   | `public`               | Database schema.                                           |
+| TableName                | `idempotency_records`  | Name of the idempotency table.                             |
+| EnableAutoCreateTable    | `true`                 | Automatically create the table if not exists.              |
+| EnableBackgroundCleanup  | `true`                 | Enables automatic background deletion of expired records.  |
+| CleanupInterval          | `00:05:00`             | How often the background cleanup runs.                     |
+
 
 ## Error Handling
 
